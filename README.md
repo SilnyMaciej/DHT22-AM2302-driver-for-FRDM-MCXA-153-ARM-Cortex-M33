@@ -34,27 +34,7 @@ Ensure you configure your target GPIO pin using the NXP MCUXpresso **Pins Tool**
 Replace your application entry point (e.g., `main.c` / `DHT22_sample.c`) with the following implementation:
 
 ```c
-#include <stdio.h>
-#include "board.h"
-#include "peripherals.h"
-#include "pin_mux.h"
-#include "clock_config.h"
-#include "fsl_debug_console.h"
-#include "dht22_driver.h"
 
-int main(void) {
-    /* Init board hardware */
-    BOARD_InitBootPins();
-    BOARD_InitBootClocks();
-    BOARD_InitBootPeripherals();
-#ifndef BOARD_INIT_DEBUG_CONSOLE_PERIPHERAL
-    /* Init FSL debug console */
-    BOARD_InitDebugConsole();
-#endif
-
-    PRINTF("DHT22 Sensor Driver Initialize...\r\n");
-
-    while(1) {
         // Read raw data package from the sensor
         uint32_t raw_data = DHT22_Get_Temperature_And_RH();
 
@@ -93,7 +73,4 @@ int main(void) {
 
         // DHT22 requires a minimum 2-second interval between consecutive reads
         delay_us(2000000U);
-    }
-    return 0;
-}
 ```
